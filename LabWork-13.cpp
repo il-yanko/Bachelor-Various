@@ -9,13 +9,15 @@ int GoodSize()
 	int size;
 	cout << "Input size of matrix for array:" << endl;
 	cin.clear(); cin >> size;
-	float mod = 50 % size;
+	if (size<=1)
+		size = 1;
+	float mod = 500 % size;
 	while (!(mod==0) || (size==1) )
 	{
 		cin.clear();
 		cout<<"Incorrect size was entered. Please, try again."<<endl;
 		cin>>size;
-		mod = (float) (50 % size);
+		mod = (float) (500 % size);
 	}
 	return size;
 }
@@ -24,7 +26,7 @@ int Print(int* a, int hgt)
 	int wdt;
 	if (hgt==1)
 		hgt = GoodSize();
-	wdt = 50 / hgt;
+	wdt = 500 / hgt;
 	for (int h=0; h<hgt; h++)
 	{
 		for (int w=0; w<wdt; w++)
@@ -35,7 +37,7 @@ int Print(int* a, int hgt)
 }
 bool Check(int*arr)
 {
-	const int size = 50;
+	const int size = 500;
 	bool check;
 	for (int i=0; i<(size-1); i++)
 	{
@@ -49,7 +51,7 @@ bool Check(int*arr)
 	}
 	return check;
 }
-void QSort (int*a, int b, int e, int hgt, bool inception)
+double QSort (int*a, int b, int e, int hgt, bool inception)
 { //b - base ptr; e - end ptr; inception - fact of being called during the other call
   int l = b, r = e;
   int cur = a[(l + r) / 2];
@@ -63,22 +65,27 @@ void QSort (int*a, int b, int e, int hgt, bool inception)
       swap (a[l++], a[r--]);
   }
   if (b < r)
-    QSort (a,b, r, hgt, 1);
+    QSort (a, b, r, hgt, 1);
   if (e > l)
-    QSort (a,l, e, hgt, 1);
+    QSort (a, l, e, hgt, 1);
+  double time = 0;
   if (Check(a) && (inception==0))
   {
 	  Print(a,hgt); //hgt - amount of lines in our matrix
 	  cout << "Array is already sorted "<< endl;
+	  time = clock();
   }
+  return time;
 }
 void ReWork (int* str)
 {
 	int hgt = Print(str,1); //given array
-	const int size = 50;
+	const int size = 500;
 	Check (str);
-	QSort (str,0,size-1, hgt, 0);
-	//Print(str,hgt); // sorted array
+	double startTime = clock();
+	double endTime	= QSort (str, 0, size-1, hgt, 0); // function return absolute time when sort stops
+	double time = endTime - startTime;
+	cout << "Runtime of sorting procedure is " << time / (double)CLOCKS_PER_SEC << " seconds";
 }
 void Work()
 {
