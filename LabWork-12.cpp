@@ -7,7 +7,7 @@ using std::endl;
 
 void CreateSpace(int size)
 {
-	char *part =" ",*tmp=NULL;
+	char *part =" ";
 	char rez[60]="";
 	for (int i=0; i<(size+1); i++)
 	{
