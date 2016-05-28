@@ -20,7 +20,7 @@ void outputNormal(int id)
 void outputSorted()
 {
 	int date, used=0;
-	int permitted[amount] = {}, sorted[amount] = {};
+	int permitted[amount] = {};
 
 	cout << "Please, enter date of flight" << endl;
 	cin >> date;
